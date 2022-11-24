@@ -1,7 +1,17 @@
-﻿public class Program 
-{ 
-    static void Main(string[] args) 
+﻿namespace UserManagementSystem.Migrator
+{
+    public class Program
     {
-        RunMigrator.WithParameters(DbKind.Postgres, "Host=localhost:5432;Database=UserManagementSystem;Username=postgres;Password=mysecretpassword", typeof(Program).Assembly, args) ; 
-    } 
+        public static void Main(string[] args)
+        {
+            MigrateDatabase();
+        }
+
+        private static void MigrateDatabase()
+        {
+            var connectionString = "Host=localhost:5432;Database=UserManagementSystem;Username=postgres;Password=mysecretpassword";
+            var migrationRunner = new MigratorRunner(connectionString);
+            migrationRunner.Migrate();
+        }
+    }
 }
