@@ -9,7 +9,7 @@
 
         private static void MigrateDatabase()
         {
-            var connectionString = "Host=localhost:5432;Database=UserManagementSystem;Username=postgres;Password=mysecretpassword";
+            var connectionString = "Host=localhost;Port=5432;Database=UserManagementSystem;Username=postgres;Password=mysecretpassword";
             var migrationRunner = new MigratorRunner(connectionString);
             migrationRunner.Migrate();
         }
