@@ -1,4 +1,7 @@
-﻿namespace UserManagementSystem
+﻿using UserManagementSystem.BLL.Services;
+using UserManagementSystem.DAL.Repositories;
+
+namespace UserManagementSystem
 {
     public class Startup
     {
@@ -13,6 +16,8 @@
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddControllers();
+            services.AddScoped<UserService>();
+            services.AddScoped<UserRepository>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -26,8 +31,6 @@
             app.UseHttpsRedirection();
 
             app.UseRouting();
-
-            app.UseAuthorization();
 
             app.UseEndpoints(endpoints =>
             {
