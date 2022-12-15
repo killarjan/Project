@@ -1,6 +1,7 @@
 ﻿using UserManagementSystem.BLL.Models;
 using UserManagementSystem.DAL.Models;
 using UserManagementSystem.DAL.Repositories;
+using static System.Net.Mime.MediaTypeNames;
 
 namespace UserManagementSystem.BLL.Services
 {
@@ -13,9 +14,9 @@ namespace UserManagementSystem.BLL.Services
             _userRepository = userRepository;
         }
 
-        public GetUsersListResult[] GetUsersList()
+        public async Task<GetUsersListResult[]> GetUsersList()
         {
-            return _userRepository.GetUsersList()
+            return (await _userRepository.GetUsersList())
                 .Select(r => new GetUsersListResult()
                 {
                     Id = r.Id,
@@ -25,9 +26,9 @@ namespace UserManagementSystem.BLL.Services
                 .ToArray();
         }
 
-        public GetUsersListResult GetUser(long id)
+        public async Task<GetUsersListResult> GetUser(long id)
         {
-            var dalResult = _userRepository.GetUser(id);
+            var dalResult = await _userRepository.GetUser(id);
 
             if (dalResult == null)
             {
@@ -37,9 +38,20 @@ namespace UserManagementSystem.BLL.Services
             return new GetUsersListResult()
             {
                 Id = dalResult.Id,
-                Name= dalResult.Name,
-                Email= dalResult.Email,
+                Name = dalResult.Name,
+                Email = dalResult.Email,
             };
+        }
+
+        public void CreateUser(CreateUserModel user)
+        {
+            var userDal = new UserDal()
+            {
+                Name = user.Name,
+                Email = user.Email,
+                CreatedAt = DateTime.Now,
+            };
+            _userRepository.CreateUser(userDal);
         }
     }
 }
