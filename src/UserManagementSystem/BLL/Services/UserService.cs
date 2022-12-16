@@ -43,7 +43,7 @@ namespace UserManagementSystem.BLL.Services
             };
         }
 
-        public void CreateUser(CreateUserModel user)
+        public async Task CreateUser(CreateUserModel user)
         {
             var userDal = new UserDal()
             {
@@ -51,7 +51,19 @@ namespace UserManagementSystem.BLL.Services
                 Email = user.Email,
                 CreatedAt = DateTime.Now,
             };
-            _userRepository.CreateUser(userDal);
+            await _userRepository.CreateUser(userDal);
+        }
+
+        public async Task UpdateUser(UpdateUserModel user)
+        {
+            var userDal = new UserDal()
+            {
+                Id = user.Id,
+                Name = user.Name,
+                Email = user.Email,
+            };
+
+            await _userRepository.UpdateUser(userDal);
         }
     }
 }

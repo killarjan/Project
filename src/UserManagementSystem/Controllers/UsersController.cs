@@ -50,7 +50,7 @@ namespace UserManagementSystem.Controllers
 
         [HttpPost]
 
-        public IActionResult PostUser(CreateUserRequest user)
+        public async Task<IActionResult> PostUser(CreateUserRequest user)
         {
             var userModel = new CreateUserModel()
             {
@@ -58,7 +58,23 @@ namespace UserManagementSystem.Controllers
                 Email = user.Email,
             };
 
-            _userService.CreateUser(userModel);
+            await _userService.CreateUser(userModel);
+
+            return Ok();
+        }
+
+        [HttpPut]
+
+        public async Task<IActionResult> UpdateUser(UpdateUserRequest user)
+        {
+            var userModel = new UpdateUserModel()
+            {
+                Id = user.Id,
+                Name = user.Name,
+                Email= user.Email,
+            };
+
+            await _userService.UpdateUser(userModel);
 
             return Ok();
         }
