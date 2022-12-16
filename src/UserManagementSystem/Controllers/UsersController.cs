@@ -1,6 +1,8 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using UserManagementSystem.BLL.Models;
 using UserManagementSystem.BLL.Services;
+using UserManagementSystem.Models.Users.Requests;
 using UserManagementSystem.Models.Users.Responses;
 
 namespace UserManagementSystem.Controllers
@@ -17,9 +19,9 @@ namespace UserManagementSystem.Controllers
         }
 
         [HttpGet]
-        public GetUsersResponse[] Get()
+        public async Task<GetUsersResponse[]> Get()
         {
-           return _userService.GetUsersList()
+           return (await _userService.GetUsersList())
                 .Select(r => new GetUsersResponse()
                 {
                     Name = r.Name,
@@ -30,9 +32,9 @@ namespace UserManagementSystem.Controllers
 
         [HttpGet("{id}")]
 
-        public IActionResult GetUser(long id)
+        public async Task<IActionResult> GetUser(long id)
         {
-            var serviceResult = _userService.GetUser(id);
+            var serviceResult = await _userService.GetUser(id);
 
             if (serviceResult == null)
             {
@@ -44,6 +46,21 @@ namespace UserManagementSystem.Controllers
                 Name = serviceResult.Name,
                 Email = serviceResult.Email,
             });
+        }
+
+        [HttpPost]
+
+        public IActionResult PostUser(CreateUserRequest user)
+        {
+            var userModel = new CreateUserModel()
+            {
+                Name = user.Name,
+                Email = user.Email,
+            };
+
+            _userService.CreateUser(userModel);
+
+            return Ok();
         }
     }
 }

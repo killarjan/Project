@@ -14,19 +14,27 @@ namespace UserManagementSystem.DAL.Repositories
             _connectionString = configuration.GetSection("DbSettings:ConnectionString").Value;
         }
 
-        public UserDal[] GetUsersList()
+        public async Task<UserDal[]> GetUsersList()
         {
             using (IDbConnection db = new NpgsqlConnection(_connectionString))
             {
-                return db.Query<UserDal>("SELECT id, name, email, created_at FROM public.users_table;").ToArray();
+                return (await db.QueryAsync<UserDal>("SELECT id, name, email, created_at FROM public.users_table;")).ToArray();
             }
         }
 
-        public UserDal GetUser(long id)
+        public async Task<UserDal> GetUser(long id)
         {
             using (IDbConnection db = new NpgsqlConnection(_connectionString))
             {
-                return db.Query<UserDal>("SELECT id, name, email, created_at FROM public.users_table WHERE Id = @id;", new { id }).FirstOrDefault();
+                return (await db.QueryAsync<UserDal>("SELECT id, name, email, created_at FROM public.users_table WHERE Id = @id;", new { id })).FirstOrDefault();
+            }
+        }
+
+        public async void CreateUser(UserDal user)
+        {
+            using (IDbConnection db = new NpgsqlConnection(_connectionString))
+            {
+                await db.ExecuteAsync("INSERT INTO public.users_table (name, email, created_at) VALUES(@Name, @Email, @CreatedAt);", user);
             }
         }
     }
