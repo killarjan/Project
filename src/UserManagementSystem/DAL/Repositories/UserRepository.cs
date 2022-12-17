@@ -30,11 +30,19 @@ namespace UserManagementSystem.DAL.Repositories
             }
         }
 
-        public async void CreateUser(UserDal user)
+        public async Task CreateUser(UserDal user)
         {
             using (IDbConnection db = new NpgsqlConnection(_connectionString))
             {
                 await db.ExecuteAsync("INSERT INTO public.users_table (name, email, created_at) VALUES(@Name, @Email, @CreatedAt);", user);
+            }
+        }
+
+        public async Task UpdateUser(UserDal user)
+        {
+            using (IDbConnection db = new NpgsqlConnection(_connectionString))
+            {
+                await db.ExecuteAsync("UPDATE public.users_table SET name = @Name, email = @Email WHERE id=@Id;", user);
             }
         }
     }
