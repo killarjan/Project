@@ -65,5 +65,10 @@ namespace UserManagementSystem.BLL.Services
 
             await _userRepository.UpdateUser(userDal);
         }
+
+        public async Task DeleteUser(long id)
+        {
+            await _userRepository.DeleteUser(id);
+        }
     }
 }

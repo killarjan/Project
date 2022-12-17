@@ -78,5 +78,13 @@ namespace UserManagementSystem.Controllers
 
             return Ok();
         }
+
+        [HttpDelete]
+
+        public async Task<IActionResult> DeleteUser(long id)
+        {
+            await _userService.DeleteUser(id);
+            return Ok();
+        }
     }
 }
