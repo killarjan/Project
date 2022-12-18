@@ -1,7 +1,6 @@
 ﻿using Dapper;
 using Npgsql;
 using System.Data;
-using UserManagementSystem.BLL.Models;
 using UserManagementSystem.DAL.Models;
 
 namespace UserManagementSystem.DAL.Repositories

@@ -18,7 +18,9 @@ namespace UserManagementSystem
             services.AddControllers();
             services.AddSwaggerGen();
             services.AddScoped<UserService>();
+            services.AddScoped<PhoneService>();
             services.AddScoped<UserRepository>();
+            services.AddScoped<PhoneRepository>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

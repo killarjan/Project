@@ -1,4 +1,4 @@
-﻿using UserManagementSystem.BLL.Models;
+﻿using UserManagementSystem.BLL.Models.Users;
 using UserManagementSystem.DAL.Models;
 using UserManagementSystem.DAL.Repositories;
 using static System.Net.Mime.MediaTypeNames;

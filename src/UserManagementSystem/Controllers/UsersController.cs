@@ -1,6 +1,6 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
-using UserManagementSystem.BLL.Models;
+using UserManagementSystem.BLL.Models.Users;
 using UserManagementSystem.BLL.Services;
 using UserManagementSystem.Models.Users.Requests;
 using UserManagementSystem.Models.Users.Responses;
