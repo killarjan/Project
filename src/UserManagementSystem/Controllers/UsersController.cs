@@ -31,10 +31,9 @@ namespace UserManagementSystem.Controllers
         }
 
         [HttpGet("{id}")]
-
         public async Task<IActionResult> GetUser(long id)
         {
-            var serviceResult = await _userService.GetUser(id);
+            var serviceResult =await _userService.GetUser(id);
 
             if (serviceResult == null)
             {
@@ -49,7 +48,6 @@ namespace UserManagementSystem.Controllers
         }
 
         [HttpPost]
-
         public async Task<IActionResult> PostUser(CreateUserRequest user)
         {
             var userModel = new CreateUserModel()
@@ -64,7 +62,6 @@ namespace UserManagementSystem.Controllers
         }
 
         [HttpPut]
-
         public async Task<IActionResult> UpdateUser(UpdateUserRequest user)
         {
             var userModel = new UpdateUserModel()
@@ -80,10 +77,10 @@ namespace UserManagementSystem.Controllers
         }
 
         [HttpDelete]
-
         public async Task<IActionResult> DeleteUser(long id)
         {
             await _userService.DeleteUser(id);
+
             return Ok();
         }
     }

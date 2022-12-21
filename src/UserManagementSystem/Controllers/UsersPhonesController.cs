@@ -19,7 +19,6 @@ namespace UserManagementSystem.Controllers
         }
 
         [HttpPost]
-
         public async Task<IActionResult> CreateUserPhone(CreateUserPhoneRequest userPhone)
         {
             var userPhoneModel = new CreateUserPhoneModel()
@@ -34,7 +33,6 @@ namespace UserManagementSystem.Controllers
         }
 
         [HttpPut]
-
         public async Task<IActionResult> UpdateUserPhone(UpdateUserPhoneRequest userPhone)
         {
             var userPhoneModel = new UpdateUserPhoneModel()
@@ -49,7 +47,6 @@ namespace UserManagementSystem.Controllers
         }
 
         [HttpGet]
-
         public async Task<GetUserPhonesResponse[]> GetUserPhonesList(long userId)
         {
             return (await _phoneService.GetUserPhonesList(userId))
@@ -61,15 +58,13 @@ namespace UserManagementSystem.Controllers
         }
 
         [HttpDelete]
-
-        public async Task<IActionResult> DeleteUserById(long userId)
+        public async Task<IActionResult> DeletePhoneByUserId(long userId)
         {
             await _phoneService.DeleteUserById(userId);
             return Ok();
         }
 
         [HttpDelete("deletephone")]
-
         public async Task <IActionResult> DeleteUserByPhone(string phoneNumber)
         {
             await _phoneService.DeleteUserByPhone(phoneNumber);
