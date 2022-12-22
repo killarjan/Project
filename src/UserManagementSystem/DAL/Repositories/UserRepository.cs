@@ -45,5 +45,13 @@ namespace UserManagementSystem.DAL.Repositories
                 await db.ExecuteAsync("UPDATE public.users_table SET name = @Name, email = @Email WHERE id=@Id;", user);
             }
         }
+
+        public async Task DeleteUser(long id)
+        {
+            using (IDbConnection db = new NpgsqlConnection(_connectionString))
+            {
+                await db.ExecuteAsync("DELETE FROM public.users_table WHERE id=@id;", new { id });
+            }
+        }
     }
 }
