@@ -17,7 +17,7 @@ namespace UserManagementSystem.DAL.Repositories
         {
             using (IDbConnection db = new NpgsqlConnection(_connectionString))
             {
-                return (await db.QueryAsync<UserDal>("SELECT id, name, email, created_at FROM public.users_table;")).ToArray();
+                return (await db.QueryAsync<UserDal>("SELECT id, name, age, email, created_at FROM public.users_table;")).ToArray();
             }
         }
 
@@ -25,7 +25,7 @@ namespace UserManagementSystem.DAL.Repositories
         {
             using (IDbConnection db = new NpgsqlConnection(_connectionString))
             {
-                return (await db.QueryAsync<UserDal>("SELECT id, name, email, created_at FROM public.users_table WHERE Id = @id;", new { id })).FirstOrDefault();
+                return (await db.QueryAsync<UserDal>("SELECT id, name, age, email, created_at FROM public.users_table WHERE Id = @id;", new { id })).FirstOrDefault();
             }
         }
 
@@ -33,7 +33,7 @@ namespace UserManagementSystem.DAL.Repositories
         {
             using (IDbConnection db = new NpgsqlConnection(_connectionString))
             {
-                await db.ExecuteAsync("INSERT INTO public.users_table (name, email, created_at) VALUES(@Name, @Email, @CreatedAt);", user);
+                await db.ExecuteAsync("INSERT INTO public.users_table (name, age, email, created_at) VALUES(@Name, @Age, @Email, @CreatedAt);", user);
             }
         }
 
@@ -41,7 +41,7 @@ namespace UserManagementSystem.DAL.Repositories
         {
             using (IDbConnection db = new NpgsqlConnection(_connectionString))
             {
-                await db.ExecuteAsync("UPDATE public.users_table SET name = @Name, email = @Email WHERE id=@Id;", user);
+                await db.ExecuteAsync("UPDATE public.users_table SET name = @Name, age = @Age, email = @Email WHERE id=@Id;", user);
             }
         }
 

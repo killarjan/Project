@@ -25,6 +25,7 @@ namespace UserManagementSystem.Controllers
                 .Select(r => new GetUsersResponse()
                 {
                     Name = r.Name,
+                    Age = r.Age,
                     Email = r.Email,
                 })
                 .ToArray();
@@ -43,6 +44,7 @@ namespace UserManagementSystem.Controllers
             return Ok (new GetUsersResponse()
             {
                 Name = serviceResult.Name,
+                Age= serviceResult.Age,
                 Email = serviceResult.Email,
             });
         }
@@ -53,6 +55,7 @@ namespace UserManagementSystem.Controllers
             var userModel = new CreateUserModel()
             {
                 Name = user.Name,
+                Age = user.Age,
                 Email = user.Email,
             };
 
@@ -68,6 +71,7 @@ namespace UserManagementSystem.Controllers
             {
                 Id = user.Id,
                 Name = user.Name,
+                Age = user.Age,
                 Email= user.Email,
             };
 

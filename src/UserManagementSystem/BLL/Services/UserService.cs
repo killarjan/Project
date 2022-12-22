@@ -21,6 +21,7 @@ namespace UserManagementSystem.BLL.Services
                 {
                     Id = r.Id,
                     Name = r.Name,
+                    Age = r.Age,
                     Email = r.Email
                 })
                 .ToArray();
@@ -39,6 +40,7 @@ namespace UserManagementSystem.BLL.Services
             {
                 Id = dalResult.Id,
                 Name = dalResult.Name,
+                Age= dalResult.Age,
                 Email = dalResult.Email,
             };
         }
@@ -48,6 +50,7 @@ namespace UserManagementSystem.BLL.Services
             var userDal = new UserDal()
             {
                 Name = user.Name,
+                Age = user.Age,
                 Email = user.Email,
                 CreatedAt = DateTime.Now,
             };
@@ -60,6 +63,7 @@ namespace UserManagementSystem.BLL.Services
             {
                 Id = user.Id,
                 Name = user.Name,
+                Age = user.Age,
                 Email = user.Email,
             };
 
