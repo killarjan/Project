@@ -1,4 +1,4 @@
-﻿namespace UserManagementSystem.BLL.Models
+﻿namespace UserManagementSystem.BLL.Models.Users
 {
     public class CreateUserModel
     {

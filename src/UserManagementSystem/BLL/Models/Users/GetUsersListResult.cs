@@ -1,6 +1,6 @@
-﻿namespace UserManagementSystem.BLL.Models
+﻿namespace UserManagementSystem.BLL.Models.Users
 {
-    public class UpdateUserModel
+    public class GetUsersListResult
     {
         public long Id { get; set; }
 
