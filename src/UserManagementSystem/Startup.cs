@@ -1,5 +1,8 @@
-﻿using UserManagementSystem.BLL.Services;
+﻿using FluentValidation;
+using Microsoft.AspNetCore.Hosting;
+using UserManagementSystem.BLL.Services;
 using UserManagementSystem.DAL.Repositories;
+using UserManagementSystem.Models.Users.Requests;
 
 namespace UserManagementSystem
 {
@@ -17,6 +20,7 @@ namespace UserManagementSystem
         {
             services.AddControllers();
             services.AddSwaggerGen();
+            services.AddValidatorsFromAssembly(typeof(Startup).Assembly);
             services.AddScoped<UserService>();
             services.AddScoped<PhoneService>();
             services.AddScoped<UserRepository>();

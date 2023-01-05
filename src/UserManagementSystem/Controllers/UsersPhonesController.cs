@@ -47,14 +47,14 @@ namespace UserManagementSystem.Controllers
         }
 
         [HttpGet]
-        public async Task<GetUserPhonesResponse[]> GetUserPhonesList(long userId)
+        public async Task<List<GetUserPhonesResponse>> GetUserPhonesList(long userId)
         {
             return (await _phoneService.GetUserPhonesList(userId))
                 .Select(r => new GetUserPhonesResponse()
                 {
                     PhoneNumber=r.PhoneNumber,
                 })
-                .ToArray();
+                .ToList();
         }
 
         [HttpDelete]
