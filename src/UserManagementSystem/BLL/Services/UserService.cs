@@ -51,12 +51,12 @@ namespace UserManagementSystem.BLL.Services
         {
             var userDalResult = await _userRepository.GetUser(id);
 
-            var phoneDalResult = await _phoneRepository.GetUserPhonesList(id);
-
-            if (userDalResult == null || phoneDalResult == null)
+            if (userDalResult == null)
             {
                 return null;
             }
+
+            var phoneDalResult = await _phoneRepository.GetUserPhonesList(id);
 
             return new GetUserFullDataResult()
             {
