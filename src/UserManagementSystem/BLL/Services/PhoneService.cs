@@ -37,14 +37,14 @@ namespace UserManagementSystem.BLL.Services
             await _phoneRepository.UpdateUserPhone(userPhoneDal);
         }
 
-        public async Task<GetUserPhonesListResult[]> GetUserPhonesList(long userId)
+        public async Task<List<GetUserPhonesListResult>> GetUserPhonesList(long userId)
         {
             return (await _phoneRepository.GetUserPhonesList(userId))
                 .Select(r => new GetUserPhonesListResult()
                 {
                     PhoneNumber=r.PhoneNumber,
                 })
-                .ToArray();
+                .ToList();
         }
 
         public async Task DeleteUserById(long userId)

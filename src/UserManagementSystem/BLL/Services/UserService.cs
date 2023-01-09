@@ -8,10 +8,12 @@ namespace UserManagementSystem.BLL.Services
     public class UserService
     {
         private readonly UserRepository _userRepository;
+        private readonly PhoneRepository _phoneRepository;
 
-        public UserService(UserRepository userRepository)
+        public UserService(UserRepository userRepository, PhoneRepository phoneRepository)
         {
             _userRepository = userRepository;
+            _phoneRepository = phoneRepository;
         }
 
         public async Task<GetUsersListResult[]> GetUsersList()
@@ -42,6 +44,31 @@ namespace UserManagementSystem.BLL.Services
                 Name = dalResult.Name,
                 Age= dalResult.Age,
                 Email = dalResult.Email,
+            };
+        }
+
+        public async Task<GetUserFullDataResult> GetUserFullData(long id)
+        {
+            var userDalResult = await _userRepository.GetUser(id);
+
+            var phoneDalResult = await _phoneRepository.GetUserPhonesList(id);
+
+            if (userDalResult == null || phoneDalResult == null)
+            {
+                return null;
+            }
+
+            return new GetUserFullDataResult()
+            {
+                Name = userDalResult.Name,
+                Age = userDalResult.Age,
+                Email = userDalResult.Email,
+                Phones = phoneDalResult
+                .Select(r=>new GetUserFullDataPhonesResult()
+                {
+                    PhoneNumber = r.PhoneNumber,
+                })
+                .ToList(),
             };
         }
 

@@ -30,11 +30,11 @@ namespace UserManagementSystem.DAL.Repositories
             }
         }
 
-        public async Task<UserPhoneDal[]> GetUserPhonesList(long userId)
+        public async Task<List<UserPhoneDal>> GetUserPhonesList(long userId)
         {
             using (IDbConnection db = new NpgsqlConnection(_connectionString))
             {
-                return (await db.QueryAsync<UserPhoneDal>("SELECT id AS Id, user_id AS UserId, phone_number AS PhoneNumber, created_at AS CreatedAt, updated_at AS UpdatedAt FROM public.users_phones_table WHERE user_id=@userId;", new { userId })).ToArray();
+                return (await db.QueryAsync<UserPhoneDal>("SELECT id AS Id, user_id AS UserId, phone_number AS PhoneNumber, created_at AS CreatedAt, updated_at AS UpdatedAt FROM public.users_phones_table WHERE user_id=@userId;", new { userId })).ToList();
             }
         }
 

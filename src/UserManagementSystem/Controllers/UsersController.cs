@@ -1,9 +1,11 @@
-﻿using Microsoft.AspNetCore.Http;
+﻿using FluentValidation;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using UserManagementSystem.BLL.Models.Users;
 using UserManagementSystem.BLL.Services;
 using UserManagementSystem.Models.Users.Requests;
 using UserManagementSystem.Models.Users.Responses;
+using UserManagementSystem.Validators;
 
 namespace UserManagementSystem.Controllers
 {
@@ -12,10 +14,12 @@ namespace UserManagementSystem.Controllers
     public class UsersController : ControllerBase
     {
         private readonly UserService _userService;
+        private readonly CreateUserRequestValidator _validator;
 
-        public UsersController(UserService userService)
+        public UsersController(UserService userService, CreateUserRequestValidator validator)
         {
            _userService = userService;
+           _validator = validator;
         }
 
         [HttpGet]
@@ -34,7 +38,7 @@ namespace UserManagementSystem.Controllers
         [HttpGet("{id}")]
         public async Task<IActionResult> GetUser(long id)
         {
-            var serviceResult =await _userService.GetUser(id);
+            var serviceResult = await _userService.GetUser(id);
 
             if (serviceResult == null)
             {
@@ -49,9 +53,40 @@ namespace UserManagementSystem.Controllers
             });
         }
 
-        [HttpPost]
-        public async Task<IActionResult> PostUser(CreateUserRequest user)
+        [HttpGet("userfulldata/{id}")]
+        public async Task<IActionResult> GetUserFullData(long id)
         {
+            var serviceResult = await _userService.GetUserFullData(id);
+            
+            if (serviceResult == null)
+            {
+                return NotFound();
+            }
+
+            return Ok(new GetUserFullDataResponse()
+            {
+                Name = serviceResult.Name,
+                Age = serviceResult.Age,
+                Email = serviceResult.Email,
+                Phones = serviceResult.Phones
+                .Select(r => new GetUserFullDataPhonesResponse()
+                {
+                    PhoneNumber = r.PhoneNumber,
+                })
+                .ToList()
+            });
+        }
+        
+        [HttpPost]
+        public async Task<IActionResult> CreateUser(CreateUserRequest user)
+        {
+            var validationResult = _validator.Validate(user);
+
+            if (!validationResult.IsValid)
+            {
+                return BadRequest(validationResult);
+            }
+
             var userModel = new CreateUserModel()
             {
                 Name = user.Name,
