@@ -76,7 +76,7 @@ namespace UserManagementSystem.BLL.Services
         {
             var dalResult = await _userRepository.AltGetUserFullData(id);
 
-            if (dalResult == null)
+            if (dalResult.Length == 0)
             {
                 return null;
             }
