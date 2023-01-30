@@ -38,7 +38,7 @@ namespace UserManagementSystem.DAL.Repositories
             }
         }
 
-        public async Task DeleteUserById(long userId)
+        public async Task DeletePhoneByUserId(long userId)
         {
             using (IDbConnection db = new NpgsqlConnection(_connectionString))
             {
@@ -46,7 +46,7 @@ namespace UserManagementSystem.DAL.Repositories
             }
         }
 
-        public async Task DeleteUserByPhone(string phoneNumber)
+        public async Task DeletePhone(string phoneNumber)
         {
             using (IDbConnection db = new NpgsqlConnection(_connectionString))
             {

@@ -1,7 +1,6 @@
 ﻿using UserManagementSystem.BLL.Models.Users;
 using UserManagementSystem.DAL.Models;
 using UserManagementSystem.DAL.Repositories;
-using static System.Net.Mime.MediaTypeNames;
 
 namespace UserManagementSystem.BLL.Services
 {
@@ -119,6 +118,8 @@ namespace UserManagementSystem.BLL.Services
 
         public async Task DeleteUser(long id)
         {
+            await _phoneRepository.DeletePhoneByUserId(id);
+
             await _userRepository.DeleteUser(id);
         }
     }
