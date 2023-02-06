@@ -60,14 +60,14 @@ namespace UserManagementSystem.Controllers
         [HttpDelete]
         public async Task<IActionResult> DeletePhoneByUserId(long userId)
         {
-            await _phoneService.DeleteUserById(userId);
+            await _phoneService.DeletePhoneByUserId(userId);
             return Ok();
         }
 
         [HttpDelete("deletephone")]
         public async Task <IActionResult> DeleteUserByPhone(string phoneNumber)
         {
-            await _phoneService.DeleteUserByPhone(phoneNumber);
+            await _phoneService.DeletePhone(phoneNumber);
             return Ok();
         }
     }

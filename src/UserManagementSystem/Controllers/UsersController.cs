@@ -1,6 +1,5 @@
-﻿using FluentValidation;
-using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
+using Prometheus;
 using UserManagementSystem.BLL.Models.Users;
 using UserManagementSystem.BLL.Services;
 using UserManagementSystem.Models.Users.Requests;
@@ -14,12 +13,16 @@ namespace UserManagementSystem.Controllers
     public class UsersController : ControllerBase
     {
         private readonly UserService _userService;
-        private readonly CreateUserRequestValidator _validator;
+        private readonly CreateUserRequestValidator _createValidator;
+        private readonly UpdateUserRequestValidator _updateValidator;
+        private static readonly Counter UsersCreatedCount = Metrics
+            .CreateCounter("users_created_count","Number of created users");
 
-        public UsersController(UserService userService, CreateUserRequestValidator validator)
+        public UsersController (UserService userService, CreateUserRequestValidator createValidator, UpdateUserRequestValidator updateValidator)
         {
            _userService = userService;
-           _validator = validator;
+           _createValidator = createValidator;
+           _updateValidator = updateValidator;
         }
 
         [HttpGet]
@@ -93,7 +96,7 @@ namespace UserManagementSystem.Controllers
         [HttpPost]
         public async Task<IActionResult> CreateUser(CreateUserRequest user)
         {
-            var validationResult = _validator.Validate(user);
+            var validationResult = _createValidator.Validate(user);
 
             if (!validationResult.IsValid)
             {
@@ -109,12 +112,21 @@ namespace UserManagementSystem.Controllers
 
             await _userService.CreateUser(userModel);
 
+            UsersCreatedCount.Inc();
+
             return Ok();
         }
 
         [HttpPut]
         public async Task<IActionResult> UpdateUser(UpdateUserRequest user)
         {
+            var validationResult = _updateValidator.Validate(user);
+
+            if (!validationResult.IsValid)
+            {
+                return BadRequest(validationResult);
+            }
+
             var userModel = new UpdateUserModel()
             {
                 Id = user.Id,

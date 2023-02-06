@@ -47,14 +47,14 @@ namespace UserManagementSystem.BLL.Services
                 .ToList();
         }
 
-        public async Task DeleteUserById(long userId)
+        public async Task DeletePhoneByUserId(long userId)
         {
-            await _phoneRepository.DeleteUserById(userId);
+            await _phoneRepository.DeletePhoneByUserId(userId);
         }
 
-        public async Task DeleteUserByPhone(string phoneNumber)
+        public async Task DeletePhone(string phoneNumber)
         {
-            await _phoneRepository.DeleteUserByPhone(phoneNumber);
+            await _phoneRepository.DeletePhone(phoneNumber);
         }
     }
 }
