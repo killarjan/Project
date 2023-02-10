@@ -18,6 +18,7 @@ namespace UserManagementSystem
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddControllers();
+            services.AddHttpClient();
             services.AddSwaggerGen();
             services.AddValidatorsFromAssembly(typeof(Startup).Assembly);
             services.AddScoped<UserService>();
