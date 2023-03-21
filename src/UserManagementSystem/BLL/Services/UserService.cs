@@ -100,7 +100,16 @@ namespace UserManagementSystem.BLL.Services
                 Email = user.Email,
                 CreatedAt = DateTime.Now,
             };
-            await _userRepository.CreateUser(userDal);
+
+            var createdUserId = await _userRepository.CreateUser(userDal);
+
+            var phoneDal = new UserPhoneDal()
+            {
+                UserId = createdUserId,
+                PhoneNumber = user.PhoneNumber,
+            };
+
+            await _phoneRepository.CreateUserPhone(phoneDal);
         }
 
         public async Task UpdateUser(UpdateUserModel user)
