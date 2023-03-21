@@ -20,9 +20,9 @@ namespace UserManagementSystem.Controllers
         {            
             using (HttpClient client = _httpClientFactory.CreateClient())
             {
-                MockServerResponce? mockServerResponce = await client.GetFromJsonAsync<MockServerResponce>("https://3vw153md8d.api.quickmocker.com/test");
+                MockServerResponse? mockServerResponse = await client.GetFromJsonAsync<MockServerResponse>("https://3vw153md8d.api.quickmocker.com/test");
 
-                return Ok(mockServerResponce);
+                return Ok(mockServerResponse);
             }
         }
     }
