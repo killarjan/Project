@@ -26,7 +26,7 @@ namespace UserManagementSystem.Controllers
         }
 
         [HttpGet]
-        public async Task<GetUsersResponse[]> Get()
+        public async Task<GetUsersResponse[]> GetUsersList()
         {
            return (await _userService.GetUsersList())
                 .Select(r => new GetUsersResponse()
@@ -108,6 +108,7 @@ namespace UserManagementSystem.Controllers
                 Name = user.Name,
                 Age = user.Age,
                 Email = user.Email,
+                PhoneNumber = user.PhoneNumber,
             };
 
             await _userService.CreateUser(userModel);
@@ -116,6 +117,8 @@ namespace UserManagementSystem.Controllers
 
             return Ok();
         }
+
+
 
         [HttpPut]
         public async Task<IActionResult> UpdateUser(UpdateUserRequest user)
